@@ -6,17 +6,21 @@ const app = express();
 dotEnv.config();
 
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static("./public"))
+app.use(express.static("./public"));
 
-app.set('view engine', 'ejs');
+app.set("view engine", "ejs");
+
+app.get("/api/status", (req, res) => {
+	res.json({ status: "server OK" });
+});
 
 app.get("/", (req, res) => {
-    res.send(console.log("everyhing aokay"));
+	res.send(console.log("everyhing aokay"));
 });
 
 app.listen(process.env.PORT, () => {
-    console.log(`listening on port ${process.env.PORT}`);
-    mongoose
+	console.log(`listening on port ${process.env.PORT}`);
+	mongoose
 		.connect(process.env.DATABASE_URL, {
 			useNewUrlParser: true,
 			useUnifiedTopology: true,
@@ -27,4 +31,4 @@ app.listen(process.env.PORT, () => {
 		})
 
 		.catch((err) => console.error("DB Connection failed", err));
-})
+});
