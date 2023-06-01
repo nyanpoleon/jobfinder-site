@@ -14,6 +14,10 @@ app.get("/api/status", (req, res) => {
 	res.json({ status: "server OK" });
 });
 
+app.get("/register", (req, res) => {
+    
+})
+
 app.get("/", (req, res) => {
 	res.send(console.log("everyhing aokay"));
 });
