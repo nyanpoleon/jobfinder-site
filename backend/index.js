@@ -10,13 +10,32 @@ app.use(express.static("./public"));
 
 app.set("view engine", "ejs");
 
+const registerSchema = new mongoose.Schema({
+	name: {
+		type: String,
+		required: true,
+	},
+	email: {
+		type: String,
+		required: true,
+		unique: true,
+	},
+	mobile: {
+		type: String,
+		required: true,
+		unique: true,
+	},
+	password: {
+		type: String,
+		required: true,
+	}
+});
+
 app.get("/api/status", (req, res) => {
 	res.json({ status: "server OK" });
 });
 
-app.get("/register", (req, res) => {
-    
-})
+app.get("/register", (req, res) => {});
 
 app.get("/", (req, res) => {
 	res.send(console.log("everyhing aokay"));
