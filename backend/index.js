@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 const dotEnv = require("dotenv");
+const jwt = require("jsonwebtoken")
 const app = express();
 dotEnv.config();
 
@@ -23,7 +24,6 @@ const registerSchema = new mongoose.Schema({
 	mobile: {
 		type: String,
 		required: true,
-		unique: true,
 	},
 	password: {
 		type: String,
@@ -35,7 +35,37 @@ app.get("/api/status", (req, res) => {
 	res.json({ status: "server OK" });
 });
 
-app.get("/register", (req, res) => {});
+
+
+app.get("/register", (req, res) => {
+	res.json("register route");
+});
+
+app.post("/register", (req, res) => {
+	const {name, email, mobile, password} = req.body;
+
+	const newRegister = new Register({
+		name,
+		email,
+		mobile,
+		password,
+	})
+
+	newRegister.save((err) => {
+		if (err) {
+			console.error("Error registering user", err);
+			res.status(500).json({ error: "Failed to register user"})
+		} else {
+			
+		}
+	})
+});
+
+app.get("/login", (req, res) => {
+	res.json("login route");
+});
+
+
 
 app.get("/", (req, res) => {
 	res.send(console.log("everyhing aokay"));
